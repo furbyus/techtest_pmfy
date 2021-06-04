@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  php:
+    image: furbyus/php8-cli:latest
+    container_name: php-server-pmfy
+    environment:
+      - LOCAL_USER_ID=${HOST_UID}
+      - APP_ENV=dev
+    volumes:
+      - ./:/home/user/app:cached
+    networks:
+      - php-net
+      - db-net
+  db:
+    image: mariadb:10.6.1-focal
+    container_name: db-server-pmfy
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    networks:
+      - db-net
+networks:
+  php-net:
+    name: php_net_pmfy
+  db-net:
+    name: db_net_pmfy
