@@ -8,7 +8,7 @@ export DOCKER_COMPOSE := docker-compose -p paymefy -f ${LOCATION}/docker-compose
 default: install ;
 
 # First time install build an run
-install : pull up composer database migrate
+install : pull up composer wait database migrate
 
 # Pull
 pull : 
@@ -34,7 +34,11 @@ clean :
 	@${DOCKER_COMPOSE} down --rmi all --remove-orphans
 
 # Reinstall, stopping containers and removing images
-reinstall: | clean install
+reinstall: clean install
+
+wait:
+	@echo "waiting 5 seconds to make sure mariadb is running"
+	@sleep 5
 
 # Enter a shell inside php container
 shell :
@@ -62,4 +66,4 @@ database :
 
 # Database migrate
 migrate :
-	@${DOCKER_COMPOSE} exec -T -u user -w "/home/user/app" php php bin/console doctrine:migrations:migrate
+	@${DOCKER_COMPOSE} exec -T -u user -w "/home/user/app" php php bin/console doctrine:migrations:migrate --no-interaction
