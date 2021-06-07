@@ -16,7 +16,7 @@ services:
     Paymefy\:
         resource: '../src'
         exclude:
-            - '../src/Renewals/Domain/'
+            - '../src/Renewals/Domain/Model'
             - '../src/Kernel.php'
 
     # add more service definitions when explicit configuration is needed
