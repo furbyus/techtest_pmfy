@@ -2,9 +2,10 @@
 
 namespace Paymefy\Renewals\Application\Action;
 
+use Paymefy\Shared\Application\Action\BaseCommand;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class GetExpiringRenewalsCommand
+class GetExpiringRenewalsCommand extends BaseCommand
 {
     private const ACCEPTED_FORMATS = ['xml', 'json', 'db'];
 
