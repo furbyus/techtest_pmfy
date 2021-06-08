@@ -2,7 +2,7 @@
 
 namespace Paymefy\Shared\Application;
 
-class Task
+abstract class Task 
 {
-    
+   
 }

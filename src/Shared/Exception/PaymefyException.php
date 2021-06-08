@@ -1,6 +1,6 @@
 <?php
 
-namespace Paymefy\Shared;
+namespace Paymefy\Shared\Exception;
 
 use Exception;
 

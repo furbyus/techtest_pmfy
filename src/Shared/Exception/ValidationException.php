@@ -1,8 +1,6 @@
 <?php
 
-namespace Paymefy\Shared\Infrastructure\Cli\Exception;
-
-use Paymefy\Shared\PaymefyException;
+namespace Paymefy\Shared\Exception;
 
 class ValidationException extends PaymefyException
 {

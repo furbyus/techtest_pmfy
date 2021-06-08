@@ -59,17 +59,17 @@ class CliCommand extends Command implements ValidableInterface
             $parameter->setValue($value);
         }
 
+        $arrayParameters = $this->parameters->toAssocArray();
         $command = $this
             ->getReflectedCommand()
-            ->newInstanceArgs($this->parameters->toAssocArray());
-
+            ->newInstanceArgs($arrayParameters);
         try {
             $this->validate($command);
         } catch (\Throwable $th) {
             $io = new SymfonyStyle($input, $output);
             $io->error($th->getMessage());
         }
-        
+
         return $this->handler->handle($command);
     }
 
@@ -92,7 +92,7 @@ class CliCommand extends Command implements ValidableInterface
         );
     }
 
-     /**
+    /**
      * Helper method, to instantiate the command, no matter which one in our application.
      */
     protected function getReflectedCommand(): ReflectionClass

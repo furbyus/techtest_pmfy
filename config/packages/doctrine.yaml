@@ -13,5 +13,5 @@ doctrine:
             Paymefy:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/Renewals/Infrastructure/Persistence'
-                prefix: 'Paymefy\Renewals\Infrastructure\Persistence'
+                dir: '%kernel.project_dir%/src/Renewals/Domain/Model'
+                prefix: 'Paymefy\Renewals\Domain\Model'

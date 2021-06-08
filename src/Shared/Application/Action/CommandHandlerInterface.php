@@ -4,5 +4,5 @@ namespace Paymefy\Shared\Application\Action;
 
 interface CommandHandlerInterface
 {
-    public function handle(): int;
+    public function handle(CommandInterface $command): int;
 }
