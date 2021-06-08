@@ -8,8 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=DoctrineClientRepository::class)
  */
-class Client
+class Client extends BaseModel
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -30,7 +31,7 @@ class Client
     /**
      * @ORM\Column(type="string", length=80, nullable=true, name="telefono")
      */
-    private $telephone;
+    private $phone;
 
     /**
      * @ORM\Column(type="string", length=200, nullable=true)
@@ -66,14 +67,14 @@ class Client
         return $this;
     }
 
-    public function getTelephone(): ?string
+    public function getPhone(): ?string
     {
-        return $this->telephone;
+        return $this->phone;
     }
 
-    public function setTelephone(?string $telephone): self
+    public function setPhone(?string $phone): self
     {
-        $this->telephone = $telephone;
+        $this->phone = $phone;
 
         return $this;
     }

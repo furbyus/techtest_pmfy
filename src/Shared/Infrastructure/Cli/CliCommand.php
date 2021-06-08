@@ -65,12 +65,14 @@ class CliCommand extends Command implements ValidableInterface
             ->newInstanceArgs($arrayParameters);
         try {
             $this->validate($command);
+            $this->handler->handle($command, $output);
+
         } catch (\Throwable $th) {
             $io = new SymfonyStyle($input, $output);
             $io->error($th->getMessage());
+            
         }
-
-        return $this->handler->handle($command);
+        return 0;
     }
 
     /**

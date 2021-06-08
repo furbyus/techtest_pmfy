@@ -8,6 +8,7 @@ use Paymefy\Renewals\Application\Task\GetExpiringRenewals;
 use Paymefy\Renewals\Application\Task\ExportExpiringRenewalsToDatabase;
 use Paymefy\Renewals\Application\Task\ExportExpiringRenewalsToJson;
 use Paymefy\Renewals\Application\Task\ExportExpiringRenewalsToXml;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class GetExpiringRenewalsHandler extends BaseCommandHandler
 {
@@ -21,7 +22,7 @@ class GetExpiringRenewalsHandler extends BaseCommandHandler
         GetExpiringRenewals $getClientsTask,
         ExportExpiringRenewalsToDatabase $exportToDb,
         ExportExpiringRenewalsToJson $exportToJson,
-        ExportExpiringRenewalsToXml $exportToXml
+        ExportExpiringRenewalsToXml $exportToXml,
     ) {
         $this->getClientsTask = $getClientsTask;
         $this->exportToDb = $exportToDb;
@@ -29,17 +30,28 @@ class GetExpiringRenewalsHandler extends BaseCommandHandler
         $this->exportToXml = $exportToXml;
     }
 
-    public function handle(CommandInterface $command): int
+    public function handle(CommandInterface $command, OutputInterface $output): void
     {
         $this->command = $command;
         try {
-            $cs = $this->getClientsTask->run();
+            $clients = $this->getClientsTask->run();
             $exportTask = $this->{'exportTo' . ucfirst($this->command->getFormat())};
-            $exportTask->run($cs, $this->command->getFilename());
+            $result = $exportTask->run($clients, $this->command->getFilename());
+            
+            $output->writeln("Total of " . count($clients) . " clients processed!");
+            switch ($this->command->getFormat()) {
+                case 'xml':
+                case 'json':
+                    $output->writeln("Exported the records to file " . $result[0]);
+                    break;
+                case 'db':
+                    $output->writeln("Exported the records to Database");
+                    break;
+                default:
+                    break;
+            }
         } catch (\Throwable $th) {
             throw $th;
         }
-        
-        return 0;
     }
 }
