@@ -10,6 +10,8 @@ In case that you have no option `compose` on your Docker version, install and us
 ## Installation
 Here you can find the way to deploy the project on both OS types (Windows and Linux/MacOs)
 
+Copy the required .env file (test in this case) running `cp test.env .env` 
+
 ### On Windows
 I recommend using the Windows Powershell instead of CMD or Bash for Windows
 
@@ -25,7 +27,7 @@ PS C:\project-location> docker-compose -p paymefy up -d --remove-orphans
 
 #### Install the project with composer
 ```PowerShell
-PS C:\project-location> docker-compose exec php php composer install
+PS C:\project-location> docker-compose exec php composer install
 ```
 
 #### Create the database
@@ -85,4 +87,12 @@ Arguments:
 Options:
       --filename=FILENAME  Specify the file location and name, if not specified, it will be a random filename inside ./public folder
 ```
-Follow the instructions and that's it!
+If you want, you can run the command from outside too
+```bash
+docker-compose exec php php bin/console pmfy:get:expiring json
+```
+The exmaple creates the Json file with the Clients list
+
+That's it!
+
+
