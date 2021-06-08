@@ -16,7 +16,7 @@ services:
     depends_on: 
       - db
     environment:
-      - LOCAL_USER_ID=${HOST_UID}
+      - LOCAL_USER_ID=0
       - APP_ENV=dev
     volumes:
       - ./:/home/user/app:cached
