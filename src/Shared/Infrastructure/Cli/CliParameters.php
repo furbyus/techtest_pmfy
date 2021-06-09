@@ -10,10 +10,10 @@ class CliParameters implements ArrayableInterface
 {
     use Arrayable;
 
-    public function addParameter(CliParameter $attribute, ?string $propertyName = null): ReflectionProperty
+    public function addParameter(CliParameter $parameter, ?string $propertyName = null): ReflectionProperty
     {
-        $propertyName = $propertyName ?: $attribute->name;
-        $this->{$propertyName} = $attribute;
+        $propertyName = $propertyName ?: $parameter->getName();
+        $this->{$propertyName} = $parameter;
         return new ReflectionProperty($this, $propertyName);
     }
 
